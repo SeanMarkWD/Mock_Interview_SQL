@@ -1,0 +1,79 @@
+Movie Database Project
+
+Welcome to the Movie Database Project! This project involves managing a movie database with various SQL queries and operations using SQLite and Node.js.
+
+Table of Contents
+
+Project Overview
+Installation
+Usage
+Features
+Contributing
+License
+Project Overview
+
+This project is designed to handle a movie database where you can:
+
+Query for movies based on different criteria.
+Manage movie ratings and information.
+Perform advanced SQL operations and handle transactions using Node.js.
+Installation
+
+Prerequisites
+Node.js (v14 or higher)
+SQLite3
+Setup
+Clone the Repository:
+bash
+Copy code
+git clone https://github.com/yourusername/moviedatabaseproject.git
+cd moviedatabaseproject
+Install Dependencies:
+bash
+Copy code
+npm install
+Database Setup:
+Make sure you have an SQLite database named movies.db in the project directory. If not, you can create it using the provided schema or SQL scripts.
+Usage
+
+Running SQL Queries
+To execute queries, you can use SQLite3 directly or integrate with Node.js scripts.
+
+Node.js Scripts
+The project includes a Node.js script that allows you to add a movie to the database.
+
+Add a Movie:
+bash
+Copy code
+node handleMovieCLI.js "Movie Title" 2023
+This script checks if the movie already exists. If not, it adds the movie with default values for rating and votes.
+Features
+
+Basic SQL Queries: Run simple SELECT queries to retrieve data.
+Data Manipulation: Insert, update, and delete movie records.
+Advanced SQL: Use JOINs, subqueries, and aggregate functions to analyze movie data.
+Node.js Integration: Handle database operations and transactions via Node.js scripts.
+Contributing
+
+If you would like to contribute to this project, please follow these steps:
+
+Fork the Repository:
+Click the "Fork" button on the top-right of the repository page.
+Create a Feature Branch:
+bash
+Copy code
+git checkout -b feature/your-feature
+Commit Your Changes:
+bash
+Copy code
+git add .
+git commit -m "Add your message here"
+Push to Your Fork:
+bash
+Copy code
+git push origin feature/your-feature
+Create a Pull Request:
+Go to the original repository and click "New Pull Request." Select your branch and submit the pull request.
+License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
