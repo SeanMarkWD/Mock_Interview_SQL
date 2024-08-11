@@ -1,0 +1,68 @@
+# Ignore system files
+.DS_Store
+.Trash/
+.CFUserTextEncoding
+
+# Ignore user-specific settings
+*.sublime-project
+*.sublime-workspace
+.vscode/
+.idea/
+*.swp
+*.lock
+*.log
+.bash_history
+.bash_profile
+.bash_sessions/
+.gitconfig
+.ipython/
+.jupyter/
+.npm/
+
+# Ignore environment files
+.env
+.venv/
+node_modules/
+*.log
+
+# Ignore Python-related files
+__pycache__/
+*.py[cod]
+*.so
+
+# Ignore macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Ignore files related to Python virtual environments
+.venv/
+env/
+venv/
+bin/
+include/
+lib/
+local/
+
+# Ignore files related to Anaconda
+.anaconda/
+.conda/
+.condarc
+.continuum/
+
+# Ignore shell history
+.bash_history
+.bash_profile.save
+.bash_sessions/
+
+# Ignore npm cache and logs
+.npm/
+node_modules/
+.npm-debug.log
+
+# Ignore macOS system files
+.CFUserTextEncoding
+.quokka/
+.sqlite_history
+.venv/
+.zshrc
