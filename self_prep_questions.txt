@@ -1,0 +1,181 @@
+Question 1:
+
+Task: Write a query to find the titles of all movies released in the year 2000.
+Concepts: Simple SELECT query, WHERE clause.
+Answer:
+sql
+Copy code
+SELECT title
+FROM movies
+WHERE year = 2000;
+
+
+Question 2:
+
+Task: Retrieve the title and year of the movie that was released last (most recently).
+Concepts: ORDER BY, LIMIT.
+Answer:
+sql
+Copy code
+SELECT title, year
+FROM movies
+ORDER BY year DESC
+LIMIT 1;
+
+
+Question 3:
+
+Task: Find all movies with a title that starts with the letter 'A'.
+Concepts: LIKE operator.
+Answer:
+sql
+Copy code
+SELECT title
+FROM movies
+WHERE title LIKE 'A%';
+
+
+2nd Level
+Question 4:
+
+Task: List all unique years in which movies have been released, in ascending order.
+Concepts: DISTINCT, ORDER BY.
+Answer:
+sql
+Copy code
+SELECT DISTINCT year
+FROM movies
+ORDER BY year ASC;
+
+
+Question 5:
+
+Task: Find the total number of movies directed by Christopher Nolan.
+Concepts: JOIN, COUNT, WHERE.
+Answer:
+sql
+Copy code
+SELECT COUNT(*)
+FROM movies m
+JOIN directors d ON m.id = d.movie_id
+JOIN people p ON d.person_id = p.id
+WHERE p.name = 'Christopher Nolan';
+
+
+Question 6:
+
+Task: Retrieve the average rating of all movies released in the year 2022.
+Concepts: AVG, JOIN, WHERE.
+Answer:
+sql
+Copy code
+SELECT AVG(r.rating)
+FROM movies m
+JOIN ratings r ON m.id = r.movie_id
+WHERE m.year = 2022;
+
+
+3rd Level
+Question 7:
+
+Task: Find the titles of movies that have received higher ratings than the average rating of all movies.
+Concepts: Subquery, AVG, WHERE.
+Answer:
+sql
+Copy code
+SELECT title
+FROM movies m
+JOIN ratings r ON m.id = r.movie_id
+WHERE r.rating > (SELECT AVG(rating) FROM ratings);
+
+
+Question 8:
+
+Task: Retrieve the title of each movie that has been directed by more than one person.
+Concepts: GROUP BY, HAVING, JOIN.
+Answer:
+sql
+Copy code
+SELECT m.title
+FROM movies m
+JOIN directors d ON m.id = d.movie_id
+GROUP BY m.title
+HAVING COUNT(d.person_id) > 1;
+
+
+Question 9:
+
+Task: Create a new table named genres with columns id, name, and description.
+Concepts: CREATE TABLE.
+Answer:
+sql
+Copy code
+CREATE TABLE genres (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT
+);
+
+
+4th Level (Highest Difficulty Level)
+Question 10:
+
+Task: Write a query to find the most recent movie in the database and add a rating of 7.5 to it using a transaction. Roll back the transaction if any step fails.
+Concepts: Transaction, Subquery, INSERT, JOIN.
+Answer:
+sql
+Copy code
+BEGIN TRANSACTION;
+
+INSERT INTO ratings (movie_id, rating, votes)
+SELECT id, 7.5, 0
+FROM movies
+WHERE year = (SELECT MAX(year) FROM movies)
+ORDER BY id DESC
+LIMIT 1;
+
+COMMIT;
+
+Question 11:
+Task: Write a SQL transaction that deletes a new movie and its corresponding rating, ensuring that no partial data is committed if an error occurs.
+Concepts: Transaction, JOIN.
+Answer:
+11.1. Check if the Movie Exists and Has Ratings
+sql
+Copy code
+SELECT movies.id, COUNT(ratings.movie_id) AS ratingCount
+FROM movies
+LEFT JOIN ratings ON movies.id = ratings.movie_id
+WHERE movies.title = 'Inception' AND movies.year = 2010;
+
+11.2. Delete Ratings and the Movie (if Confirmed)
+Assuming the movie exists and has been confirmed for deletion (based on application logic):
+
+sql
+Copy code
+-- Delete ratings first
+DELETE FROM ratings
+WHERE movie_id = (
+    SELECT id FROM movies
+    WHERE title = 'Inception' AND year = 2010
+);
+
+-- Then delete the movie
+DELETE FROM movies
+WHERE title = 'Inception' AND year = 2010;
+
+
+Question 12:
+
+Task: Write a query that returns the top 5 most common movie genres (assuming a genres table and movie_genres linking table exist) and the average rating of movies in each genre.
+Concepts: Subqueries, Joins, Aggregation, LIMIT.
+Answer:
+sql
+Copy code
+SELECT g.name, COUNT(mg.movie_id) AS movie_count, AVG(r.rating) AS average_rating
+FROM genres g
+JOIN movie_genres mg ON g.id = mg.genre_id
+JOIN ratings r ON mg.movie_id = r.movie_id
+GROUP BY g.name
+ORDER BY movie_count DESC
+LIMIT 5;
